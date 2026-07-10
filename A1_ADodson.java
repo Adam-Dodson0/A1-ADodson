@@ -7,10 +7,11 @@
     The system will allow users to create, view, and manage appointments with healthcare providers.
     It will include features such as appointment scheduling, reminders, and patient information management.
  */
+
+
 public class A1_ADodson{
     
     public static void main(String[] args){
-        
         
     }
 

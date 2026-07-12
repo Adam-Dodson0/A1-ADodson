@@ -137,7 +137,7 @@ class Nurse extends HealthProfessional{
 
     @Override
     public String performSpecialFunction() {
-        return getName() + "Takes a blood sample, monitors vitals and gives fluid in " + ward + ".";
+        return getName() + " Takes a blood sample, monitors vitals and gives fluid in " + ward + ".";
     }
     }
 
@@ -149,7 +149,7 @@ class Practitoner extends HealthProfessional {
                         List<String> availableSlots, String consultingRoom) {
             super(id, name, weekDays, availableSlots);
             this.consultingRoom = (consultingRoom == null || consultingRoom.trim().isEmpty())
-            ? " " : consultingRoom;
+            ? "" : consultingRoom;
     }
 
     public String getConsultingRoom() {
@@ -158,13 +158,13 @@ class Practitoner extends HealthProfessional {
 
     @Override
     public String performSpecialFunction() {
-        return getName() + "Performs Health Check on patient and prescribes necessary medications.";
+        return getName() + " Performs Health Check on patient and prescribes necessary medications.";
     }
 
-    @Override
-    public String toString() {
-        return name + "(ID: " + id + "|" + consultingRoom + ")";
-    }
+    // @Override
+    // public String toString() {
+    //     return name + "(ID: " + id + "|" + consultingRoom + ")";
+    // }
 }
 
 class Specialist extends HealthProfessional {
@@ -175,7 +175,7 @@ class Specialist extends HealthProfessional {
                       List<String> availableSlots, String consultingRoom) {
         super(id, name, weekDays, availableSlots);    
         this.consultingRoom = (consultingRoom == null || consultingRoom.trim().isEmpty())
-            ? " " : consultingRoom;
+            ? "Room" : consultingRoom;
     }
 
     public String getConsultingRoom() {
@@ -187,10 +187,10 @@ class Specialist extends HealthProfessional {
         return getName() + "Looks over Patient's records and advises suitable treatment plans.";
     }
 
-    @Override
-    public String toString() {
-        return name + "(ID: " + id + "|" + consultingRoom + ")";
-    }
+    // @Override
+    // public String toString() {
+    //     return name + "(ID: " + id + "|" + consultingRoom + ")";
+    // }
 }
 
 class Surgeon extends HealthProfessional{
@@ -210,7 +210,7 @@ class Surgeon extends HealthProfessional{
 
     @Override
     public String performSpecialFunction() {
-        return getName() + "Performing operation in " + getConsultingRoom();
+        return getName() + " Is performing an operation in " + getConsultingRoom() + ".";
     }
 }
 
@@ -287,5 +287,57 @@ abstract class Appointment implements Comparable<Appointment> {
     public String toString() {
         return "[" + slot + "] " + patient + "\n"
         + " With ->" + professionals + "\n";
+    }
+
+//this is the Appointment creation and View section
+class AppointmentSchedule {
+
+    private final List<Appointment> appointments = new ArrayList<>();
+
+    public boolean addAppointment(Appointment appointment) {
+        if (appointment == null) {
+            System.out.println ("Error: Cannot add this appointment.");
+            return false;
+        }
+        for (Appointment existing : appointments) {
+            if (existing.getProfessional().equals(appointment.getProfessional())
+            && existing.getSlot().equals(appointment.getSlot())) {
+            System.out.println("Error: " + appointment.getProfessional().getName()
+        + " (ID" + appointment.getProfessional().getId() + ") is already booked at "
+        + appointment.getSlot() + ". Appointment was not made.");
+            return false;
+            }
+        }
+        appointments.add(appointment);
+        return true;
+    }
+
+    public List<Appointment> viewByProfessionalId(String professionalId) {
+        List<Appointment> result = new ArrayList<>();
+        for (Appointment approved : appointments) {
+            if (approved.getProfessional().getId().equals(professionalId)) {
+                result.add(approved);
+            }
+        }
+        if (result.isEmpty()) {
+            System.out.println
+            ("Error: No appointments found for Health Professional ID "
+                + professionalId + ".");
+        }
+        return result;
+    }
+    public List<Appointment> getAllAppointments() {
+        return new ArrayList<>(appointments);
+    }
+    public void displayAppoinments(List<Appointment> toDisplay) {
+        if (toDisplay.isEmpty()) {
+            System.out.println("(No appointments available to display.)");
+            return;
+            }
+        for (Appointment approved : toDisplay) {
+            System.out.println(approved);
+            System.out.println("-----------------------------------------------");
+            }
+        }
     }
 }

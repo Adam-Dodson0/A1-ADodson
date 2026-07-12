@@ -11,6 +11,7 @@
     //List of Imports
     import java.util.ArrayList;
     import java.util.Arrays;
+    import java.util.Collections;
     import java.util.List;
 
 class A1_ADodson {
@@ -68,11 +69,34 @@ class A1_ADodson {
         professionals.add(sg1);
         professionals.add(sg2);
 
-        for (HealthProfessional hp : professionals) {
-            System.out.println(hp);
-            System.out.println(" ->" + hp.performSpecialFunction());
-        }
+        // for (HealthProfessional hp : professionals) {
+        //     System.out.println(hp);
+        //     System.out.println(" ->" + hp.performSpecialFunction());
+        // }
 
+        System.out.println("\n===================== Appointment Demo ===================\n");
+
+        AppointmentSchedule appointment = new AppointmentSchedule();
+
+        System.out.println("------------------- Booking appointments -----------------\n");
+        appointment.newAppointment(new Appointment(p1, gp2, "09:30"));
+        appointment.newAppointment(new Appointment(p2, sp1, "09:30"));
+        appointment.newAppointment(new Appointment(p3, sg1, "09:30"));
+        appointment.newAppointment(new Appointment(p4, nurse1, "09:30"));
+        appointment.newAppointment(new Appointment(p1, gp4, "09:30"));
+        System.out.println("Appointments successfully booked.\n");
+        System.out.print("All Appointments: " + appointment.appointments + "\n");
+
+        System.out.println("\n------------------- Booking appointment Error: Double Booking -----------------\n");
+        boolean rejected = appointment.newAppointment(new Appointment(p2, gp2, "09:30"));
+        System.out.println("Result of double-booking attempt: " + (rejected ? "added" : "rejected") + "\n");
+
+        System.out.println("------------------- All Appointments sorted by time -------------------");
+        appointment.displayAppoinments(appointment.sortByTime(appointment.getAllAppointments()));
+
+        System.out.println("\n------------------- Final list of appointments, sorted by time -------------------");
+        appointment.displayAppoinments(appointment.sortByTime(appointment.getAllAppointments()));
+    
     }
 }
 
@@ -121,7 +145,7 @@ abstract class HealthProfessional {
     abstract String performSpecialFunction();
 }
 
-class Nurse extends HealthProfessional{
+class Nurse extends HealthProfessional {
 
     private final String ward;
 
@@ -139,7 +163,12 @@ class Nurse extends HealthProfessional{
     public String performSpecialFunction() {
         return getName() + " Takes a blood sample, monitors vitals and gives fluid in " + ward + ".";
     }
-    }
+
+    @Override
+    public String toString() {
+        return name + "(ID: " + id + "|" + ward + ")";
+    }    
+}
 
 class Practitoner extends HealthProfessional {
 
@@ -161,10 +190,10 @@ class Practitoner extends HealthProfessional {
         return getName() + " Performs Health Check on patient and prescribes necessary medications.";
     }
 
-    // @Override
-    // public String toString() {
-    //     return name + "(ID: " + id + "|" + consultingRoom + ")";
-    // }
+    @Override
+    public String toString() {
+        return name + "(ID: " + id + "|" + consultingRoom + ")";
+    }
 }
 
 class Specialist extends HealthProfessional {
@@ -187,10 +216,10 @@ class Specialist extends HealthProfessional {
         return getName() + "Looks over Patient's records and advises suitable treatment plans.";
     }
 
-    // @Override
-    // public String toString() {
-    //     return name + "(ID: " + id + "|" + consultingRoom + ")";
-    // }
+    @Override
+    public String toString() {
+        return name + "(ID: " + id + "|" + consultingRoom + ")";
+    }
 }
 
 class Surgeon extends HealthProfessional{
@@ -212,6 +241,11 @@ class Surgeon extends HealthProfessional{
     public String performSpecialFunction() {
         return getName() + " Is performing an operation in " + getConsultingRoom() + ".";
     }
+
+    @Override
+    public String toString() {
+        return name + "(ID: " + id + "|" + consultingRoom + ")";
+    }   
 }
 
 class Patient {
@@ -245,7 +279,7 @@ class Patient {
     }
 }
 
-abstract class Appointment implements Comparable<Appointment> {
+class Appointment implements Comparable<Appointment> {
 
     final Patient patient;
     final HealthProfessional professionals;
@@ -288,13 +322,14 @@ abstract class Appointment implements Comparable<Appointment> {
         return "[" + slot + "] " + patient + "\n"
         + " With ->" + professionals + "\n";
     }
+}    
 
 //this is the Appointment creation and View section
 class AppointmentSchedule {
 
-    private final List<Appointment> appointments = new ArrayList<>();
+    final List<Appointment> appointments = new ArrayList<>();
 
-    public boolean addAppointment(Appointment appointment) {
+    public boolean newAppointment(Appointment appointment) {
         if (appointment == null) {
             System.out.println ("Error: Cannot add this appointment.");
             return false;
@@ -329,15 +364,19 @@ class AppointmentSchedule {
     public List<Appointment> getAllAppointments() {
         return new ArrayList<>(appointments);
     }
+    public List<Appointment> sortByTime(List<Appointment> toSort) {
+        List<Appointment> sorted = new ArrayList<>(toSort);
+        Collections.sort(sorted);
+        return sorted;
+    }
     public void displayAppoinments(List<Appointment> toDisplay) {
         if (toDisplay.isEmpty()) {
             System.out.println("(No appointments available to display.)");
             return;
-            }
+        }
         for (Appointment approved : toDisplay) {
             System.out.println(approved);
             System.out.println("-----------------------------------------------");
-            }
         }
     }
 }

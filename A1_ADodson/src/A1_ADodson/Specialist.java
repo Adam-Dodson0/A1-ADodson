@@ -2,8 +2,8 @@ package A1_ADodson;
 
 import java.util.List;
 
-class Specialist extends HealthProfessional {
-    
+public class Specialist extends HealthProfessional {
+
     private final String consultingRoom;
 
     public Specialist(String id, String name, List<String> weekDays,
@@ -19,7 +19,7 @@ class Specialist extends HealthProfessional {
 
     @Override
     public String performSpecialFunction() {
-        return getName() + "Looks over Patient's records and advises suitable treatment plans.";
+        return name + " Looks over Patient's records and advises suitable treatment plans.";
     }
 
     @Override

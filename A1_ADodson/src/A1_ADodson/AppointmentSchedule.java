@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class AppointmentSchedule {
+public class AppointmentSchedule {
 
     private final List<Appointment> appointments = new ArrayList<>();
 

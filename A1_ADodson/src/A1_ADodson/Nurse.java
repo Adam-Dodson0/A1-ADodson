@@ -2,10 +2,8 @@ package A1_ADodson;
 
 import java.util.List;
 
-class Nurse extends HealthProfessional {
+public class Nurse extends HealthProfessional {
 
-    private int id;
-    private String name;
     private final String ward;
 
     public Nurse (String id, String name, List<String> weekDays,
@@ -25,6 +23,6 @@ class Nurse extends HealthProfessional {
 
     @Override
     public String toString() {
-        return name + "(ID: " + id + "|" + ward + ")";
+        return getName() + "(ID: " + getId() + "|" + ward + ")";
     }    
 }

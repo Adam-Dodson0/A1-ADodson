@@ -1,6 +1,6 @@
 package A1_ADodson;
 
-class Patient {
+public class Patient {
 
     private String name;
     private String phoneNumber;

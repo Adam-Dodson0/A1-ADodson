@@ -8,7 +8,8 @@ class Surgeon extends HealthProfessional{
 
     public Surgeon (String id, String name, List<String> weekDays,
                    List<String> availableSlots, String consultingRoom) {
-        super(id, name, weekDays, availableSlots);
+            super(id, name, weekDays, availableSlots);
+
 
         this.consultingRoom = (consultingRoom == null || consultingRoom.trim().isEmpty())
             ? "Operating Room" : consultingRoom;    
@@ -20,7 +21,7 @@ class Surgeon extends HealthProfessional{
 
     @Override
     public String performSpecialFunction() {
-        return getName() + " Is performing an operation in " + getConsultingRoom() + ".";
+        return name + " Is performing an operation in " + getConsultingRoom() + ".";
     }
 
     @Override

@@ -1,6 +1,8 @@
 package A1_ADodson;
 
-abstract class HealthProfessional {
+import java.util.List;
+
+public abstract class HealthProfessional {
     
     final String id;
     final String name;
@@ -42,5 +44,5 @@ abstract class HealthProfessional {
         return availableSlots;
     }
 
-    abstract String performSpecialFunction();
+    public abstract String performSpecialFunction();
 }

@@ -2,13 +2,13 @@ package A1_ADodson;
 
 import java.util.List;
 
-class Practitoner extends HealthProfessional {
+public class Practitoner extends HealthProfessional {
 
     private final String consultingRoom;
 
     public Practitoner (String id, String name, List<String> weekDays,
                         List<String> availableSlots, String consultingRoom) {
-            super(id, name, weekDays, availableSlots, consultingRoom);
+            super(id, name, weekDays, availableSlots);
             this.consultingRoom = (consultingRoom == null || consultingRoom.trim().isEmpty())
             ? "" : consultingRoom;
     }
@@ -17,8 +17,9 @@ class Practitoner extends HealthProfessional {
         return consultingRoom;
     }
 
+    @Override
     public String performSpecialFunction() {
-        return getName() + " Performs Health Check on patient and prescribes necessary medications.";
+        return name + " Performs Health Check on patient and prescribes necessary medications.";
     }
 
     @Override

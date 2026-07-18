@@ -7,6 +7,7 @@
     Viewing existing appointments, and canceling appointments.
 
 */
+
 package A1_ADodson;
 
     //List of Imports
@@ -41,8 +42,8 @@ class A1_ADodson {
         Practitoner gp3 = new Practitoner("1257", "Dr. JD", mtw, new ArrayList<>(availableSlots), "Room 5");
         Practitoner gp4 = new Practitoner("1245", "Dr. Candice Robin", mwf, new ArrayList<>(availableSlots), "Room 4");
 
-        Specialist sp1 = new Specialist("2423","Dr. Shannon Templeton ",tt, new ArrayList<> (availableSlots),"Room 2");
-        Specialist sp2 = new Specialist("2256","Dr. Ethan Holmes ",mwf, new ArrayList<> (availableSlots),"Room 10");
+        Specialist sp1 = new Specialist("2423","Dr. Shannon Templeton",tt, new ArrayList<> (availableSlots),"Room 2");
+        Specialist sp2 = new Specialist("2256","Dr. Ethan Holmes",mwf, new ArrayList<> (availableSlots),"Room 10");
         Specialist sp3 = new Specialist("2912","Dr. Tuesday Addams",mtw, new ArrayList<> (availableSlots),"Room 9");
 
         Surgeon sg1 = new Surgeon("3725", "Dr. Jordan", tt, new ArrayList<>(availableSlots),"Operating Room 1");
@@ -69,11 +70,6 @@ class A1_ADodson {
         professionals.add(sg1);
         professionals.add(sg2);
 
-        // for (HealthProfessional hp : professionals) {
-        //     System.out.println(hp);
-        //     System.out.println(" ->" + hp.performSpecialFunction());
-        // }
-
         System.out.println("\n===================== Appointment Demo ===================\n");
 
         AppointmentSchedule appointment = new AppointmentSchedule();
@@ -85,10 +81,14 @@ class A1_ADodson {
         appointment.newAppointment(new Appointment(p4, nurse1, "09:30"));
         appointment.newAppointment(new Appointment(p1, gp4, "09:30"));
         System.out.println("Appointments successfully booked.\n");
-        System.out.print("All Appointments: " + appointment.appointments + "\n");
+        System.out.print("All Appointments: " + appointment.getAllAppointments() + "\n");
 
         System.out.println("-------------------Appointment for -------------------------\n");
-        System.out.println(professionals + performSpecialFunction + " on " + p1);
+        for (Appointment appt: appointment.getAllAppointments()) {
+            HealthProfessional hp = appt.getProfessional();
+            Patient pat = appt.getPatient();
+        System.out.println(hp.getName() + " performs: " + hp.performSpecialFunction() + " on " + pat.getName());
+        }
 
         System.out.println("\n------------------- Booking appointment Error: Double Booking -----------------\n");
         boolean rejected = appointment.newAppointment(new Appointment(p2, gp2, "09:30"));

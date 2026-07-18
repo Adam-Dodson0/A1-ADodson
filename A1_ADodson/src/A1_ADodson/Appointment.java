@@ -1,9 +1,9 @@
 package A1_ADodson;
 
-class Appointment implements Comparable<Appointment> {
+public class Appointment implements Comparable<Appointment> {
 
-    final Patient patient;
-    final HealthProfessional professionals;
+    private final Patient patient;
+    private final HealthProfessional professionals;
     final String slot;
 
     public Appointment(Patient patient, HealthProfessional professionals, String slot) {
